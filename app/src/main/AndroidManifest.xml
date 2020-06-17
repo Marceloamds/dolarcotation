@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.view.converter.DollarQuoteActivity"
+            android:name=".presentation.view.dollar.DollarQuoteActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionbar" />
     </application>

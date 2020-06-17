@@ -1,4 +1,4 @@
-package br.com.dollar.presentation.view.converter
+package br.com.dollar.presentation.view.dollar
 
 import android.content.Context
 import android.content.Intent

@@ -8,10 +8,6 @@ class ConversionForm {
     var destinationCurrency: Currency? = null
     var conversionValue: Double? = null
 
-    fun isCurrenciesEmpty(): Boolean {
-        return (originCurrency == null || destinationCurrency == null)
-    }
-
     fun isValueEmpty(): Boolean {
         return (conversionValue == null)
     }

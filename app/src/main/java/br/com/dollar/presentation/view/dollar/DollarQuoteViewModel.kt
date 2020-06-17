@@ -1,4 +1,4 @@
-package br.com.dollar.presentation.view.converter
+package br.com.dollar.presentation.view.dollar
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,15 +24,10 @@ class DollarQuoteViewModel constructor(
     private var currentQuotes: CurrentQuotes? = null
     val conversionForm = ConversionForm()
 
-    init {
-        getCurrentQuotes()
-    }
-
     fun performConversion() {
         if (currentQuotes == null) getCurrentQuotes()
         else {
             when {
-                conversionForm.isCurrenciesEmpty() -> showEmptyCurrenciesDialog()
                 conversionForm.isValueEmpty() -> showEmptyValueDialog()
                 else -> {
                     currentQuotes?.let {
@@ -53,8 +48,7 @@ class DollarQuoteViewModel constructor(
             val currentQuotes = getCurrentQuotes.execute()
             if (currentQuotes?.success == false)
                 showCurrentQuotesErrorDialog()
-            else
-                this.currentQuotes = currentQuotes
+            else this.currentQuotes = currentQuotes
         }
     }
 
@@ -68,18 +62,6 @@ class DollarQuoteViewModel constructor(
                 convertedValue
             )
         }
-    }
-
-    private fun showEmptyCurrenciesDialog() {
-        setDialog(
-            DialogData.confirm(
-                strings.emptyFieldsErrorTitle,
-                strings.emptyCurrenciesError,
-                { /* Do Nothing */ },
-                strings.globalOk,
-                true
-            )
-        )
     }
 
     private fun showEmptyValueDialog() {

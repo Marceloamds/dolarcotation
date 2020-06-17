@@ -8,7 +8,7 @@ import br.com.dollar.presentation.util.base.BaseActivity
 import br.com.dollar.presentation.util.base.BaseViewModel
 import br.com.dollar.presentation.util.extension.observe
 import br.com.dollar.presentation.util.extension.transparentStatusAndNavigation
-import br.com.dollar.presentation.view.converter.DollarQuoteActivity
+import br.com.dollar.presentation.view.dollar.DollarQuoteActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SplashActivity : BaseActivity() {
