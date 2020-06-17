@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.btg.converter">
+    package="br.com.dollar">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".presentation.BtgConverterApplication"
+        android:name=".presentation.DollarQuoteApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -27,13 +27,8 @@
         </activity>
 
         <activity
-            android:name=".presentation.view.converter.ConverterActivity"
+            android:name=".presentation.view.converter.DollarQuoteActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionbar" />
-
-        <activity
-            android:name=".presentation.view.currency.list.ListCurrenciesActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/AppTheme" />
     </application>
 </manifest>

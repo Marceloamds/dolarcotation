@@ -15,7 +15,7 @@
             tools:itemCount="50"
             tools:listitem="@layout/item_currency" />
 
-        <com.btg.converter.presentation.util.placeholder.PlaceholderView
+        <br.com.dollar.presentation.util.placeholder.PlaceholderView
             android:id="@+id/placeholder_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

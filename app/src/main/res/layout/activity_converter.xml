@@ -135,7 +135,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <com.btg.converter.presentation.util.placeholder.PlaceholderView
+        <br.com.dollar.presentation.util.placeholder.PlaceholderView
             android:id="@+id/placeholder_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
