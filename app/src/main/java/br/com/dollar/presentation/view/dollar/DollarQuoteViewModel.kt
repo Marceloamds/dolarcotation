@@ -2,45 +2,30 @@ package br.com.dollar.presentation.view.dollar
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import br.com.dollar.domain.entity.currency.Conversion
 import br.com.dollar.domain.entity.quote.CurrentQuotes
 import br.com.dollar.domain.interactor.GetCurrentQuotes
-import br.com.dollar.domain.interactor.PerformConversion
-import br.com.dollar.domain.util.form.ConversionForm
 import br.com.dollar.domain.util.resource.Strings
 import br.com.dollar.presentation.util.base.BaseViewModel
 import br.com.dollar.presentation.util.dialog.DialogData
 
 class DollarQuoteViewModel constructor(
     private val getCurrentQuotes: GetCurrentQuotes,
-    private val performConversion: PerformConversion,
     private val strings: Strings
 ) : BaseViewModel() {
 
-    val conversion: LiveData<Conversion> get() = _conversion
+    val convertedValue: LiveData<Double> get() = _convertedValue
 
-    private val _conversion by lazy { MutableLiveData<Conversion>() }
+    private val _convertedValue by lazy { MutableLiveData<Double>() }
 
+    private var conversionValue: Double? = null
     private var currentQuotes: CurrentQuotes? = null
-    val conversionForm = ConversionForm()
 
     fun performConversion() {
         if (currentQuotes == null) getCurrentQuotes()
-        else {
-            when {
-                conversionForm.isValueEmpty() -> showEmptyValueDialog()
-                else -> {
-                    currentQuotes?.let {
-                        val convertedValue = performConversion.execute(conversionForm, it)
-                        sendConversionResult(convertedValue)
-                    }
-                }
-            }
-        }
     }
 
     fun setConversionValue(conversionValue: String) {
-        conversionForm.conversionValue = conversionValue.toDoubleOrNull()
+        this.conversionValue = conversionValue.toDoubleOrNull()
     }
 
     private fun getCurrentQuotes() {
@@ -55,25 +40,7 @@ class DollarQuoteViewModel constructor(
     private fun sendConversionResult(convertedValue: Double?) {
         if (convertedValue == null) {
             showConversionErrorDialog()
-        } else {
-            _conversion.value = Conversion(
-                conversionForm.originCurrency,
-                conversionForm.destinationCurrency,
-                convertedValue
-            )
-        }
-    }
-
-    private fun showEmptyValueDialog() {
-        setDialog(
-            DialogData.confirm(
-                strings.errorTitle,
-                strings.emptyValueError,
-                { /* Do Nothing */ },
-                strings.globalOk,
-                true
-            )
-        )
+        } else _convertedValue.value = convertedValue
     }
 
     private fun showConversionErrorDialog() {

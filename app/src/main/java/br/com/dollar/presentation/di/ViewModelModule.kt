@@ -8,7 +8,7 @@ import org.koin.dsl.module
 fun viewModelModule() = module {
 
     viewModel {
-        DollarQuoteViewModel(get(), get(), get())
+        DollarQuoteViewModel(get(), get())
     }
 
     viewModel { SplashViewModel() }
