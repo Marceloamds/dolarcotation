@@ -1,49 +1,27 @@
 package br.com.dollar.presentation.view.dollar
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import br.com.dollar.domain.entity.quote.CurrentQuotes
-import br.com.dollar.domain.interactor.GetCurrentQuotes
-import br.com.dollar.domain.util.resource.Strings
+import android.content.Context
+import br.com.dollar.R
 import br.com.dollar.presentation.util.base.BaseViewModel
 import br.com.dollar.presentation.util.dialog.DialogData
 
 class DollarQuoteViewModel constructor(
-    private val getCurrentQuotes: GetCurrentQuotes,
-    private val strings: Strings
+    private val context: Context
 ) : BaseViewModel() {
-
-    val convertedValue: LiveData<Double> get() = _convertedValue
-
-    private val _convertedValue by lazy { MutableLiveData<Double>() }
-
-    private var conversionValue: Double? = null
-
-    fun getCurrentQuotes() {
-        launchDataLoad(onFailure = ::onFailure) {
-            val currentQuotes = getCurrentQuotes.execute()
-            if (currentQuotes?.success == false) showCurrentQuotesErrorDialog()
-            else _convertedValue.value = currentQuotes?.convertBrl(conversionValue ?: 1.0)
-        }
-    }
-
-    fun setConversionValue(conversionValue: String) {
-        this.conversionValue = conversionValue.toDoubleOrNull()
-    }
 
     private fun showCurrentQuotesErrorDialog() {
         setDialog(
             DialogData.confirm(
-                strings.errorTitle,
-                strings.currentQuotesError,
+                context.getString(R.string.error_title),
+                context.getString(R.string.current_quotes_error),
                 { /* Do Nothing */ },
-                strings.globalOk,
+                context.getString(R.string.global_ok),
                 true
             )
         )
     }
 
     private fun onFailure(throwable: Throwable) {
-        setDialog(throwable, ::getCurrentQuotes)
+        setDialog(throwable)
     }
 }

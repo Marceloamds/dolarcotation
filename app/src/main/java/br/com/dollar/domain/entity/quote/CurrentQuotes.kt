@@ -6,9 +6,13 @@ data class CurrentQuotes(
 ) {
 
     fun convertBrl(conversionValue: Double): Double? {
-        val realQuote = quotes.find { it.currencyCode == "BRL" }
+        val realQuote = quotes.find { it.currencyCode == BRAZILIAN_CURRENCY_CODE }
         return realQuote?.convertedValue?.let {
             it * conversionValue
         }
+    }
+
+    companion object {
+        private const val BRAZILIAN_CURRENCY_CODE = "BRL"
     }
 }
