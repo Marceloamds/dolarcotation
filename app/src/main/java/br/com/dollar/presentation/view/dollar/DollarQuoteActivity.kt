@@ -36,7 +36,7 @@ class DollarQuoteActivity : BaseActivity() {
     private fun setupUi() {
         with(binding) {
             textInputConversionValue.onTextChanges(_viewModel::setConversionValue)
-            buttonConvert.setSafeClickListener { _viewModel.performConversion() }
+            buttonConvert.setSafeClickListener { _viewModel.getCurrentQuotes() }
         }
     }
 

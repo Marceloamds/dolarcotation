@@ -18,41 +18,17 @@ class DollarQuoteViewModel constructor(
     private val _convertedValue by lazy { MutableLiveData<Double>() }
 
     private var conversionValue: Double? = null
-    private var currentQuotes: CurrentQuotes? = null
 
-    fun performConversion() {
-        if (currentQuotes == null) getCurrentQuotes()
+    fun getCurrentQuotes() {
+        launchDataLoad(onFailure = ::onFailure) {
+            val currentQuotes = getCurrentQuotes.execute()
+            if (currentQuotes?.success == false) showCurrentQuotesErrorDialog()
+            else _convertedValue.value = currentQuotes?.convertBrl(conversionValue ?: 1.0)
+        }
     }
 
     fun setConversionValue(conversionValue: String) {
         this.conversionValue = conversionValue.toDoubleOrNull()
-    }
-
-    private fun getCurrentQuotes() {
-        launchDataLoad(onFailure = ::onFailure) {
-            val currentQuotes = getCurrentQuotes.execute()
-            if (currentQuotes?.success == false)
-                showCurrentQuotesErrorDialog()
-            else this.currentQuotes = currentQuotes
-        }
-    }
-
-    private fun sendConversionResult(convertedValue: Double?) {
-        if (convertedValue == null) {
-            showConversionErrorDialog()
-        } else _convertedValue.value = convertedValue
-    }
-
-    private fun showConversionErrorDialog() {
-        setDialog(
-            DialogData.confirm(
-                strings.errorTitle,
-                strings.conversionError,
-                { /* Do Nothing */ },
-                strings.globalOk,
-                true
-            )
-        )
     }
 
     private fun showCurrentQuotesErrorDialog() {

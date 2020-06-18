@@ -36,7 +36,6 @@ fun transparentStatusAndNavigation(window: Window) {
     window.statusBarColor = Color.TRANSPARENT
 }
 
-
 fun setWindowFlag(bits: Int, on: Boolean, window: Window) {
     val win: Window = window
     val winParams: WindowManager.LayoutParams = win.attributes
